@@ -1,0 +1,159 @@
+<div style="display: flex">
+  <section *ngIf="!followersLoading" class="following-loading"></section>
+  <section *ngIf="followersLoading" class="following">
+    <div class="follow-header">
+      <div class="follow-title">Following</div>
+      <div class="follow-count">{{ following.length }}</div>
+    </div>
+
+    <div class="follow-div"></div>
+
+    <div class="follow-profiles">
+      <ng-container *ngFor="let profileFollowing of following">
+        <div class="profile-follow">
+          <img class="profile-avatar" src="{{ profileFollowing.avatar_url }}" />
+          <div
+            class="profile-name"
+            (click)="sharedGlobsalService.searchUserProfile(profileFollowing.login)"
+          >
+            {{ profileFollowing.login }}
+          </div>
+        </div>
+      </ng-container>
+      <div style="padding-top: 200px"></div>
+    </div>
+  </section>
+
+  <section *ngIf="!profileLoading" class="profile-loading"></section>
+  <section *ngIf="profileLoading" class="profile">
+    <div class="banner">
+      <img class="banner-logo" src="assets/logo.png" />
+      <img class="banner-avatar" src="{{ userInfo.avatar_url }}" />
+      <div class="userinfo">
+        <div class="userinfo-name">{{ userInfo.name }}</div>
+        <div class="userinfo-username">
+          <a href="https://github.com/{{ userInfo.login }}" target="_blank">{{
+            userInfo.login
+          }}</a>
+        </div>
+        <div class="userinfo-join">
+          Join at {{ userInfo.created_at | date: "dd/MM/yyyy" }}
+        </div>
+      </div>
+      <div *ngIf="userInfo.blog" class="userinfo-link">
+        <img src="assets/link.svg" width="30px" />
+        <div class="userinfo-link-display">
+          <a href="{{ userInfo.blog }}" target="_blank">{{ userInfo.blog }}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-content">
+      <div *ngIf="userInfo.company" class="user-content-card">
+        <img class="user-content-image" src="assets/work.svg" width="30px" />
+        <div class="user-content-info">
+          <div class="user-content-info-title">Working At</div>
+          <div class="user-content-info-data">{{ userInfo.company }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="userInfo.location" class="user-content-card">
+        <img class="user-content-image" src="assets/point.svg" width="30px" />
+        <div class="user-content-info">
+          <div class="user-content-info-title">Location</div>
+          <div class="user-content-info-data">{{ userInfo.location }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="userInfo.public_repos > 0" class="user-content-card">
+        <img class="user-content-image" src="assets/repo.svg" width="30px" />
+        <div class="user-content-info">
+          <div class="user-content-info-title">Public Repos</div>
+          <div class="user-content-info-data">{{ userInfo.public_repos }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="userInfo.email" class="user-content-card">
+        <img class="user-content-image" src="assets/email.svg" width="30px" />
+        <div class="user-content-info">
+          <div class="user-content-info-title">Email</div>
+          <div class="user-content-info-data">{{ userInfo.email }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-title">Repositories Timeline</div>
+      <ng-container *ngFor="let repo of repos">
+        <div class="repo-name">
+          <a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a>
+          <span *ngIf="repo.fork" class="repo-fork">(fork)</span>
+        </div>
+        <hr />
+        <div class="repo-description">{{ repo.description }}</div>
+        <div class="repo-focus">
+          <div style="display: flex">
+            <img src="assets/star.svg" width="30px" />
+            <div class="repo-count">{{ repo.stargazers_count }}</div>
+          </div>
+          <div style="display: flex">
+            <img src="assets/eye.svg" width="30px" />
+            <div class="repo-count">{{ repo.watchers_count }}</div>
+          </div>
+        </div>
+        <div class="repo-issues">
+          <img src="assets/issues.svg" width="20px" />
+          <div class="repo-issues-count">
+            {{ repo.open_issues_count }} Issues
+          </div>
+        </div>
+        <div class="timeline-meta">
+          <div class="timeline-create">
+            {{ repo.created_at | date: "dd/MM/yyyy" }}
+          </div>
+          <div class="timeline-repo">
+            <div class="repo-update">
+              <img src="assets/update.svg" width="20px" />
+            </div>
+            <span class="repo-update-title">Updated</span>
+            <div class="repo-update-date">
+              {{ repo.updated_at | date: "dd/MM/yyyy" }}
+            </div>
+            <div class="repo-pushed">
+              <img src="assets/git-commit.svg" width="20px" />
+            </div>
+            <span class="repo-pushed-title">Pushed</span>
+            <div class="repo-pushed-date">
+              {{ repo.pushed_at | date: "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+
+  <section *ngIf="!followingLoading" class="followers-loading"></section>
+  <section *ngIf="followingLoading" class="followers">
+    <div class="follow-header">
+      <div class="follow-title">Followers</div>
+      <div class="follow-count">{{ followers.length }}</div>
+    </div>
+
+    <div class="follow-div"></div>
+
+    <div class="follow-profiles">
+      <ng-container *ngFor="let profileFollower of followers">
+        <div class="profile-follow">
+          <img class="profile-avatar" src="{{ profileFollower.avatar_url }}" />
+          <div
+            class="profile-name"
+            (click)="sharedGlobsalService.searchUserProfile(profileFollower.login)"
+          >
+            {{ profileFollower.login }}
+          </div>
+        </div>
+      </ng-container>
+      <div style="padding-top: 200px"></div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,18 @@
+footer {
+  font-family: "OpenSans-Regular";
+  text-align: center;
+  padding: 3px;
+  color: #42609d;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.owner {
+  cursor: pointer;
+  color: #1c2a46;
+}
+
+.owner:hover {
+  color: #2a4886;
+}
