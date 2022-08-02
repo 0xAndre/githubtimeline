@@ -3,7 +3,7 @@
   <section *ngIf="followersLoading" class="following">
     <div class="follow-header">
       <div class="follow-title">Following</div>
-      <div class="follow-count">{{ following.length }}</div>
+      <div class="follow-count">{{ userInfo.following }}</div>
     </div>
 
     <div class="follow-div"></div>
@@ -136,7 +136,7 @@
   <section *ngIf="followingLoading" class="followers">
     <div class="follow-header">
       <div class="follow-title">Followers</div>
-      <div class="follow-count">{{ followers.length }}</div>
+      <div class="follow-count">{{ userInfo.followers }}</div>
     </div>
 
     <div class="follow-div"></div>
